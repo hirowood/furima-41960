@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  route to: "items#index"
+  root to: "items#index"
 end
