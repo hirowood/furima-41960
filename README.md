@@ -11,6 +11,9 @@
 | kanji_name   | string | null: false |
 | kana_name    | string | null: false |
 | phone_number | string | null: false |
+| year         | int    | null: false |
+| month        | int    | null: false |
+| day          | int    | null: false |
 | role         | int    | null: false, default: 0 |
 
 - has_one :buyers
@@ -55,6 +58,7 @@
 |   Column      |  Type      |   Options                      |
 | ------------- | ---------- | ------------------------------ |
 | seller        | references | null: false, foreign_key: true |
+| genre_id      | integer    | null: false |
 | name          | string     | null: false |
 | price         | integer    | null: false |
 | description   | text       | null: false |
