@@ -16,8 +16,8 @@
 | day          | int    | null: false |
 | role         | int    | null: false, default: 0 |
 
-- has_one :buyers
-- has_one :sellers
+- has_one :buyer
+- has_one :seller
 - has_many :addresses
 
 ## buyers テーブル
@@ -25,7 +25,6 @@
 |   Column     |  Type      |   Options                      |
 | ------------ | ---------- | ------------------------------ |
 | user         | references | null: false, foreign_key: true |
-| order        | references | null: false, foreign_key: true |
 
 - belongs_to :user
 - has_many   :orders
@@ -63,10 +62,9 @@
 | price         | integer    | null: false |
 | description   | text       | null: false |
 | status        | boolean    | null: false |
-| order         | references | null: false, foreign_key: true |
 
 - belongs_to :seller
-- has_many: orders
+- has_one: order
 
 
 
@@ -79,5 +77,5 @@
 | item          | string     | null: false, foreign_key: true |
 | status        | integer    | null: false, default: 0 |
 
-- has_many :order
-- has_many :item
+- has_many :orders
+- has_many :items
