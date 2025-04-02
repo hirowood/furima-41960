@@ -41,7 +41,7 @@
 | prefecture_id       | integer    | null: false |
 | product_condition_id| integer    | null: false |
 | free_shopping_id    | integer    | null: false |
-| delivery_days_id    | integer    | null: false |
+| delivery_day_id    | integer    | null: false |
 | name                | string     | null: false |
 | price               | integer    | null: false |
 | description         | text       | null: false |
