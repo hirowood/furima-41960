@@ -12,16 +12,15 @@
 | kana_name          | string | null: false |
 | birth_day          | date   | null: false |
 
-- has_one :buyer
-- has_one :seller
-- has_many :addresses
+- has_many :items
+- has_many :orders
 
 
 ## addressesテーブル
 
 |   Column      |  Type      |   Options                      |
 | ------------- | ---------- | ------------------------------ |
-| user          | references | null: false, foreign_key: true  |
+| order_id      | references | null: false, foreign_key: true  |
 | postal_code   | string     | null: false |
 | prefecture_id | integer    | null: false |
 | city          | string     | null: false |
@@ -29,7 +28,7 @@
 | building_name | string     | null: true |
 | phone_number  | string     | null: false |
 
-- belongs_to :user
+- belongs_to :order
 
 ## itemsテーブル
 
@@ -41,7 +40,7 @@
 | price         | integer    | null: false |
 | description   | text       | null: false |
 
-- belongs_to :seller
+- belongs_to :user
 - has_one: order
 
 
@@ -57,3 +56,4 @@
 
 - has_many :orders
 - has_many :items
+- has_one :address
