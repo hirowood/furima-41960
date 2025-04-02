@@ -34,17 +34,17 @@
 
 ## itemsテーブル
 
-|   Column         |  Type      |   Options                      |
-| ---------------- | ---------- | ------------------------------ |
-| user             | references | null: false, foreign_key: true |
-| genre_id         | integer    | null: false |
-| prefecture_id    | integer    | null: false |
-| product_condition| integer    | null: false |
-| free_shopping    | boolean    | null: false |
-| delivery_days    | integer    | null: false |
-| name             | string     | null: false |
-| price            | integer    | null: false |
-| description      | text       | null: false |
+|   Column            |  Type      |   Options                      |
+| ------------------- | ---------- | ------------------------------ |
+| user                | references | null: false, foreign_key: true |
+| genre_id            | integer    | null: false |
+| prefecture_id       | integer    | null: false |
+| product_condition_id| integer    | null: false |
+| free_shopping_id    | integer    | null: false |
+| delivery_days_id    | integer    | null: false |
+| name                | string     | null: false |
+| price               | integer    | null: false |
+| description         | text       | null: false |
 
 - belongs_to :user, through: :order
 - has_one: :order
@@ -57,8 +57,8 @@
 |   Column      |  Type      |   Options                      |
 | ------------- | ---------- | ------------------------------ |
 | user          | references | null: false, foreign_key: true |
-| item          | string     | null: false, foreign_key: true |
+| item          | references | null: false, foreign_key: true |
 
-- belongs_to :orders
-- belongs_to :items
+- belongs_to :order
+- belongs_to :item
 - has_one :address
