@@ -83,16 +83,9 @@ RSpec.describe User, type: :model do
       end
 
       it '重複したemailが存在すると登録できない' do
-        # 最初のユーザーを保存
         @user.save
-        
-        # 同じメールアドレスを持つ別のユーザーを作成
         another_user = FactoryBot.build(:user, email: @user.email)
-        
-        # バリデーションチェック
         another_user.valid?
-        
-        # エラーメッセージが期待通りか確認
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
 
@@ -106,6 +99,11 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = '123456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it '英字のみだと無効' do
+        @user.password = 'abcdef'
+        @user.validate
+        expect(@user.errors[:password]).to include('is missing a number (at least one digit is required)')
       end
     end
   end
