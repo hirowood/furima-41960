@@ -47,7 +47,7 @@
 | description         | text       | null: false |
 
 - belongs_to :user, through: :order
-- has_one: :order
+- has_one :order
 
 
 
