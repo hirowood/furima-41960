@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '内容に問題がない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
+        expect(@user).to be_valid
       end
     end
     context '内容に問題がある場合' do
@@ -41,12 +42,12 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Last kana name can't be blank")
       end
-      it 'first_nameが全角（漢字・ひらがな・カタカナでないと保存できないこと' do
+      it 'first_nameが全角（漢字・ひらがな・カタカナ)でないと保存できないこと' do
         @user.first_name = 'suzuki'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
       end
-      it 'last_nameが全角（漢字・ひらがな・カタカナでないと保存できないこと' do
+      it 'last_nameが全角（漢字・ひらがな・カタカナ)でないと保存できないこと' do
         @user.last_name = 'taro'
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name is invalid. Input full-width characters.')
@@ -102,8 +103,18 @@ RSpec.describe User, type: :model do
       end
       it '英字のみだと無効' do
         @user.password = 'abcdef'
-        @user.validate
-        expect(@user.errors[:password]).to include('is missing a number (at least one digit is required)')
+        @user.valid?
+        expect(@user.errors[:password]).to include('must include at least one letter and one digit, and only use half-width characters.')
+      end
+      it '数字のみのパスワードでは登録できない' do
+        @user.password = '123456'
+        @user.valid?
+        expect(@user.errors[:password]).to include('must include at least one letter and one digit, and only use half-width characters.')
+      end
+      it '全角文字を含むパスワードでは登録できない' do
+        @user.password = 'パスワード１'
+        @user.valid?
+        expect(@user.errors[:password]).to include('must include at least one letter and one digit, and only use half-width characters.')
       end
     end
   end
