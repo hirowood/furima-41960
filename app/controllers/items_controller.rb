@@ -14,10 +14,4 @@ class ItemsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  private
-
-  def items_params
-    params.require(:item).permit
-  end
 end

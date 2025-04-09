@@ -2,6 +2,12 @@ class Item < ApplicationRecord
   belongs_to :user, through: :order
   has_one :order
 
+  extend ActiveHash::Association::ActiveRecordExtensions
+  belongs_to :genre
+  belongs_to :prefecture
+  belongs_to :product_condition
+  belongs_to :genre
+
   VALID_PRICE_REGEX = /\A[0-9]+\z/
 
   with_options presence: true do
@@ -9,5 +15,12 @@ class Item < ApplicationRecord
     validates :price, format: { with: VALID_PRICE_REGEX },
                       numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
     validates :description
+  end
+
+  with_options numericality: { other_than: 1 } do
+    validates :product_condition_id
+    validates :prefecture_id
+    validates :genre_id
+    validates :free_shopping_id
   end
 end
