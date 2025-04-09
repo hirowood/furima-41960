@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
-  belongs_to :user, through: :order
-  has_one :order
+  belongs_to :user
+  has_one :order, through: :order
 
-  extend ActiveHash::Association::ActiveRecordExtensions
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :genre
   belongs_to :prefecture
   belongs_to :product_condition
