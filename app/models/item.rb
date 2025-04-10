@@ -1,13 +1,13 @@
 class Item < ApplicationRecord
   belongs_to :user
-  has_one :order, through: :order
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :genre
   belongs_to :prefecture
   belongs_to :product_condition
-  belongs_to :genre
+  belongs_to :delivery_day
+  belongs_to :free_shopping
 
   VALID_PRICE_REGEX = /\A[0-9]+\z/
 
@@ -23,5 +23,6 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :genre_id
     validates :free_shopping_id
+    validates :delivery_day_id
   end
 end
