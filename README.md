@@ -30,6 +30,7 @@
 | building_name | string     | null: true |
 | phone_number  | string     | null: false |
 
+
 - belongs_to :order
 
 ## itemsテーブル

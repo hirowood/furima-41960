@@ -10,10 +10,8 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    # ひらがな、カタカナ、漢字のみ許可する
     validates :first_name, format: { with: VALID_NAME_REGEX, message: 'is invalid. Input full-width characters.' }
     validates :last_name, format: { with: VALID_NAME_REGEX, message: 'is invalid. Input full-width characters.' }
-    # カタカナのみ許可する
     validates :first_kana_name,
               format: { with: VALID_KANA_NAME_REGEX, message: 'is invalid. Input full-width katakana characters.' }
     validates :last_kana_name,
