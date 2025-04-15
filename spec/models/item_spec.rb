@@ -78,6 +78,42 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
+
+      it 'userと紐付いていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+
+      it 'ジャンルに「---」が選択されている場合は出品できない' do
+        @item.genre_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Genre must be other than 0')
+      end
+
+      it '商品の状態に「---」が選択されている場合は出品できない' do
+        @item.product_condition_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Product condition must be other than 0')
+      end
+
+      it '地域に「---」が選択されている場合は出品できない' do
+        @item.prefecture_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Prefecture must be other than 0')
+      end
+
+      it '配送料の負担に「---」が選択されている場合は出品できない' do
+        @item.free_shopping_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Free shopping must be other than 0')
+      end
+
+      it '配送にかかる日数に「---」が選択されている場合は出品できない' do
+        @item.delivery_day_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Delivery day must be other than 0')
+      end
     end
   end
 end
