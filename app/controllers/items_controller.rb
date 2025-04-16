@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :set_item, only: [:show, :edit]
   def index
-    @items = Item.all
+    @items = Item.includes(:user)
   end
 
   def new
