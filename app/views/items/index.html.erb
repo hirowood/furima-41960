@@ -120,26 +120,22 @@
     </div>
     <ul class='item-lists'>
       <% unless @items.present? %>
-      <li class='list'>
-        <%= image_tag "https://placehold.jp/800x800.png", class: "item-img"  %>
-        <% if @order.present? %>
-        <div class='sold-out'>
-            <span>Sold Out!!</span>
-        </div> 
-        <% end %>
-          <div class='item-info'>
-            <h3 class='item-name'>
-              text text
-            </h3>
-            <div class='item-price'>
-              <span>¥530000円<br>(税込み)</span>
-              <div class='star-btn'>
-                <%= image_tag "star.png", class:"star-icon" %>
-                <span class='star-count'>0</span>
-              </div>
+       <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            商品を出品してね！
+          </h3>
+          <div class='item-price'>
+            <span>99999999円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
             </div>
-            <span> 着払い(購入者負担) </span>
+          </div>
         </div>
+        <% end %>
       </li>
       <% else %>
       <% @items.each do |item| %>
@@ -156,13 +152,12 @@
              <%= item.name %>
           </h3>
           <div class='item-price'>
-            <span><%= item.price %>円<br>(税込み)</span>
+            <span><%= item.price %>円<br><%= item.free_shopping.name %></span>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
             </div>
           </div>
-          <span><%=item.free_shopping.name%></span>
         </div>
         <% end %>
         </li>
