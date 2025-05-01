@@ -1,3 +1,4 @@
+# app/models/address.rb
 class Address < ApplicationRecord
   belongs_to :order
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -8,11 +9,11 @@ class Address < ApplicationRecord
 
   with_options presence: true do
     validates :city
+    validates :house_number
+    validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX, message: 'is invalid. Include hyphen(-)' }
     validates :phone_number,
               format: { with: VALID_PHONE_NUMBER_REGEX, message: 'PhoneNumber must be 10or11 digit Half-width numbers' }
-    validates :user_id
-    validates :item_id
-    validates :postal_code, format: { with: VALID_POSTAL_CODE_REGEX, message: 'is invalid. Include hyphen(-)' }
   end
-  validates :prefecture, numericality: { other_than: 0, message: "can't be blank" }
+
+  validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
 end
