@@ -2,3 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "calculate"
+// import "card_payment"
+import "card"

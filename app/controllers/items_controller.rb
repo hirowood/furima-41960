@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :user_product,       only: [:edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update]
+  before_action :prevent_own_item_purchase, only: [:edit]
+
   def index
     @items = Item.includes(:user).order(created_at: 'DESC')
   end
@@ -11,7 +13,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -54,5 +55,10 @@ class ItemsController < ApplicationController
     return if current_user.id == Item.find(params[:id]).user_id
 
     redirect_to root_path
+  end
+
+  def prevent_own_item_purchase
+    @item = Item.find(params[:id])
+    redirect_to root_path if @item.order.present?
   end
 end
