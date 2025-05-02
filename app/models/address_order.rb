@@ -2,9 +2,8 @@
 class AddressOrder
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id,
-                :city, :house_number, :building_name, :phone_number
-
-  attr_accessor :token
+                :city, :house_number, :building_name, :phone_number,
+                :token
 
   VALID_PHONE_NUMBER_REGEX = /\A\d{10,11}\z/
   VALID_POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/

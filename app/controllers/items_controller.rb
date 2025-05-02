@@ -13,7 +13,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -22,7 +21,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(item_id: @item.id)
   end
 
   def edit

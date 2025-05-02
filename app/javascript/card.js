@@ -13,7 +13,6 @@ async function createPayjpToken(numberElement) {
     }
 
     // トークン生成
-    console.log('トークン生成を試みます...');
     const response = await payjp.createToken(numberElement);
     console.log('PayJP レスポンス:', response);
 
@@ -28,8 +27,6 @@ async function createPayjpToken(numberElement) {
     const renderDom = document.querySelector('#charge-form');
     const tokenObj = `<input value="${token}" name="token" type="hidden">`;
     renderDom.insertAdjacentHTML("beforeend", tokenObj);
-    
-    console.log('トークン生成成功:', token);
     return true;
   } catch (error) {
     console.error('予期せぬエラー:', error);
@@ -53,7 +50,6 @@ const pay = () => {
   }
   
   const publicKey = gon.public_key;
-  console.log('公開キー:', publicKey);
   
   try {
     // PayJPの初期化
@@ -100,7 +96,6 @@ const pay = () => {
         const result = await createPayjpToken(numberElement);
         
         if (result) {
-          console.log('フォームを送信します...');
           numberElement.clear();
           expiryElement.clear();
           cvcElement.clear();
