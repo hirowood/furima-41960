@@ -1,11 +1,14 @@
 class ItemsController < ApplicationController
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :user_product,       only: [:edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update]
   before_action :prevent_own_item_purchase, only: [:edit]
 
 =======
+=======
+>>>>>>> Stashed changes
   before_action :authenticate_user!, only: [:new, :edit]
   before_action :set_item, only: [:show, :edit]
 >>>>>>> Stashed changes
