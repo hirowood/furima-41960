@@ -91,16 +91,10 @@
   color: #333333;
 }
 
-.login {
+.login, .sign-up {
   text-decoration: none;
   line-height: 32px;
   margin-right: 3vw;
   color: #333333;
 }
 
-.sign-up{
-  text-decoration: none;
-  color: #333333;
-  line-height: 32px;
-  margin-right: 3vw;
-}
