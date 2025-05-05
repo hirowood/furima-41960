@@ -101,4 +101,6 @@
 .sign-up {
   text-decoration: none;
   color: #333333;
+  line-height: 32px;
+  margin-right: 3vw;
 }
