@@ -10,11 +10,11 @@ time_until_shipment:
    - id: 0 
      name: "--"
    - id: 1
-     name: "1-2発送"
+     name: "1-2日で発送"
    - id: 2
-     name: "2-3発送"
+     name: "2-3日発送"
    - id: 3
-     name: "4-7発送"
+     name: "4-7日で発送"
   
 
 
