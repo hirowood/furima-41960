@@ -6,7 +6,7 @@ class AddressOrder
                 :token
 
   VALID_PHONE_NUMBER_REGEX = /\A\d{10,11}\z/i
-  VALID_PHONE_NUMBER_REGEX.feeze
+  VALID_PHONE_NUMBER_REGEX.freeze
   VALID_POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/i
   VALID_POSTAL_CODE_REGEX.feeze
 
