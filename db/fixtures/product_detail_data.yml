@@ -36,6 +36,4 @@ product_condition:
   - id: 5
     name: "傷や汚れあり"
   - id: 6
-    id: "全体的に状態が悪い"
-
-  
+    name: "全体的に状態が悪い"
