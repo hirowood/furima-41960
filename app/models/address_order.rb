@@ -5,8 +5,10 @@ class AddressOrder
                 :city, :house_number, :building_name, :phone_number,
                 :token
 
-  VALID_PHONE_NUMBER_REGEX = /\A\d{10,11}\z/
-  VALID_POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/
+  VALID_PHONE_NUMBER_REGEX = /\A\d{10,11}\z/i
+  VALID_PHONE_NUMBER_REGEX.feeze
+  VALID_POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/i
+  VALID_POSTAL_CODE_REGEX.feeze
 
   with_options presence: true do
     validates :user_id, :item_id, :city, :house_number, :token
