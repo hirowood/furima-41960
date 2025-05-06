@@ -1,5 +1,4 @@
 <%= render "shared/second-header"%>
-<%= include_gon %>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -127,5 +126,8 @@
   </div>
 </div>
 <%= render "shared/second-footer"%>
+
+
+<%= javascript_include_tag "card", defer: true %>
 
 
