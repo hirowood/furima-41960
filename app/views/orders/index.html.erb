@@ -33,6 +33,7 @@
 
     <%= form_with(model: @address_order, url: item_orders_path(@item), id: 'charge-form', class: 'transaction-form-wrap',local: true) do |f| %>
     <%= render 'shared/error_messages', resource: f.object %>
+    <%= f.hidden_field :token, id: 'token-field' %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -129,5 +130,3 @@
 
 
 <%= javascript_include_tag "card", defer: true %>
-
-

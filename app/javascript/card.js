@@ -1,98 +1,31 @@
-// app/javascript/card.js
-'use strict';
+function initPay() {
+  const form = document.getElementById("charge-form");
+  if (!form || form.dataset.initialized === "true") return;
+  form.dataset.initialized = "true";
 
-(() => {
-  // -----------------------------
-  // 内部フラグ（多重初期化防止）
-  // -----------------------------
-  let payjp        = null;
-  let elements     = null;
-  let numberElm    = null;
-  let expiryElm    = null;
-  let cvcElm       = null;
+  const publicKey = window.gon?.public_key;
+  if (!publicKey) return console.error("PAYJP 公開鍵が取得できません");
 
-  // PayJP Elements をアンマウントしてメモリリークを防ぐ
-  function destroyElements() {
-    [numberElm, expiryElm, cvcElm].forEach(elm => elm?.destroy());
-    numberElm = expiryElm = cvcElm = null;
-  }
+  const payjp    = Payjp(publicKey);
+  const elements = payjp.elements();
+  const numberEl = elements.create("cardNumber");
+  const expiryEl = elements.create("cardExpiry");
+  const cvcEl    = elements.create("cardCvc");
 
-  // -----------------------------
-  // メイン処理
-  // -----------------------------
-  async function initPay() {
-    // 既に初期化済みならスキップ
-    if (payjp) return;
+  numberEl.mount("#number-form");
+  expiryEl.mount("#expiry-form");
+  cvcEl.mount("#cvc-form");
 
-    // 公開キーの存在チェック
-    if (!window.gon?.public_key) {
-      console.error('gon.public_key が取得できません');
-      return;
-    }
-
-    // PayJP 初期化
-    payjp    = Payjp(window.gon.public_key);
-    elements = payjp.elements();
-
-    // 要素のマウント
-    numberElm  = elements.create('cardNumber');
-    expiryElm  = elements.create('cardExpiry');
-    cvcElm     = elements.create('cardCvc');
-
-    numberElm.mount('#number-form');
-    expiryElm.mount('#expiry-form');
-    cvcElm.mount('#cvc-form');
-
-    // フォーム送信
-    const form = document.getElementById('charge-form');
-    form?.addEventListener('submit', handleSubmit);
-  }
-
-  // -----------------------------
-  // Submit ハンドラ
-  // -----------------------------
-  async function handleSubmit(e) {
+  form.addEventListener("submit", e => {
     e.preventDefault();
-    const btn = document.getElementById('button');
-    btn && (btn.disabled = true);
-
-    try {
-      const { id: token, error } = await payjp.createToken(numberElm);
-
-      if (error) {
-        alert(`カード情報エラー: ${error.message}`);
-        btn && (btn.disabled = false);
-        return;
-      }
-
-      // トークン hidden フィールドを追加
-      e.target.insertAdjacentHTML(
-        'beforeend',
-        `<input type="hidden" name="token" value="${token}">`
-      );
-
-      // フォーム送信
-      e.target.submit();
-    } catch (err) {
-      console.error('Token 生成中にエラー', err);
-      alert('決済処理でエラーが発生しました。時間をおいて再度お試しください。');
-      btn && (btn.disabled = false);
-    } finally {
-      // 入力欄クリア
-      numberElm?.clear();
-      expiryElm?.clear();
-      cvcElm?.clear();
-    }
-  }
-
-  // -----------------------------
-  // Turbo イベント
-  // -----------------------------
-  document.addEventListener('turbo:load', initPay);
-
-  // ページ遷移前にクリーンアップ
-  document.addEventListener('turbo:before-render', () => {
-    destroyElements();
-    payjp = elements = null;
+    payjp.createToken(numberEl).then(res => {
+      if (res.error) return alert(res.error.message);
+      document.getElementById("token-field").value = res.id;
+      form.submit();
+    });
   });
-})();
+}
+
+document.addEventListener("turbo:load",   initPay);
+document.addEventListener("turbo:render", initPay);
+

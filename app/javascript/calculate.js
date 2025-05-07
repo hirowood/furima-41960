@@ -1,7 +1,8 @@
-'uer strict';
+
 window.addEventListener('turbo:render', () => {
-  const SALES_COMMISSION_PRICE = 0.9
   const price_input = document.querySelector("#item-price");
+  if (!price_input) return; 
+  const SALES_COMMISSION_PRICE = 0.9
   price_input.addEventListener('input', () => {
     let price = Number(price_input.value)
     let sales = Math.floor(price  * SALES_COMMISSION_PRICE);
